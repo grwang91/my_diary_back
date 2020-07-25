@@ -18,6 +18,12 @@ public class DiaryService {
     private final DiaryRepository diaryRepository;
 
     @Transactional
+    public void deleteDiary(Long id) {
+        Diary diary = diaryRepository.findById(id).get();
+        diaryRepository.delete(diary);
+    }
+
+    @Transactional
     public Long save(CreateDiaryDto createDiaryDto) {
         Diary diary = createDiaryDto.toEntity();
         return diaryRepository.save(diary).getId();

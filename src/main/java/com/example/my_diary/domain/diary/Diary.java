@@ -1,6 +1,7 @@
 package com.example.my_diary.domain.diary;
 
 
+import com.example.my_diary.common.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Entity
-public class Diary {
+public class Diary extends BaseTimeEntity {
 
     @Id
     @Column(name = "DIARY_ID")
