@@ -11,11 +11,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDateTime;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class DiaryController {
     private final DiaryService diaryService;
 
@@ -31,7 +31,7 @@ public class DiaryController {
     @PostMapping("post/diary")
     public ResponseEntity<ResponseMessageDto> save(@RequestParam("title") String title,
                                                        @RequestParam("content") String content,
-                                                       //@RequestParam("selectedFile") MultipartFile[] file
+                                                       //@RequestParam("selectedFile") MultipartFile file,
                                                        @RequestParam("weather") String weather
                                                 ) {
 

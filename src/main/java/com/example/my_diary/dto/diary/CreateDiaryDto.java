@@ -4,6 +4,7 @@ import com.example.my_diary.domain.diary.Diary;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
@@ -17,8 +18,6 @@ public class CreateDiaryDto {
     private String content;
 
     private LocalDateTime date;
-
-    //private MultipartFile selectedFile;
 
     private String weather;
 
