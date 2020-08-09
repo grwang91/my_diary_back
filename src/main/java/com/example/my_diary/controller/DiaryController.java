@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 
 
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequiredArgsConstructor
 public class DiaryController {
     private final DiaryService diaryService;

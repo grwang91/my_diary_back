@@ -1,10 +1,12 @@
 package com.example.my_diary.dto.response;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class ResponseMessageDto {
 
     private int status;
@@ -19,8 +21,4 @@ public class ResponseMessageDto {
         this.status = status;
     }
 
-    public ResponseMessageDto(int status, String message) {
-        this.status = status;
-        this.message = message;
-    }
 }
