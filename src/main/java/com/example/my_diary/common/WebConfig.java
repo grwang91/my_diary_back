@@ -12,7 +12,7 @@ public class WebConfig implements WebMvcConfigurer {
 
   private final JwtInterceptor jwtInterceptor;
   private static final String[] EXCLUDE_PATHS = {"/resource/**", "/static/**", "/post/login/**", "/post/signup/**",
-      "/error/**"};
+      "/error/**","/check"};
   private static final String[] ADD_PATHS = {"/api/**", "/user/avatar"};
 
   @Override
