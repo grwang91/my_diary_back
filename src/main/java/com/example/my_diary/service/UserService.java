@@ -4,6 +4,7 @@ import com.example.my_diary.domain.user.User;
 import com.example.my_diary.domain.user.UserRepository;
 import com.example.my_diary.dto.user.UserJoinRequestDto;
 import com.example.my_diary.dto.user.UserLoginRequestDto;
+import com.example.my_diary.exception.UserException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -32,14 +33,14 @@ public class UserService {
 
     }
 
-    public boolean login(UserLoginRequestDto requestDto) {
+    public Long login(UserLoginRequestDto requestDto) {
         User user = userRepository.findByUserName(requestDto.getLoginID());
 
         if(user == null || !passwordEncoder.matches(requestDto.getPassword(),user.getPassword())) {
-            return false;
+            throw new UserException("아이디를 확인해주세요");
         }
 
-        return true;
+        return user.getId();
 
     }
 }

@@ -5,9 +5,8 @@ import com.example.my_diary.dto.response.ResponseListDataDto;
 import com.example.my_diary.dto.response.ResponseMessageDto;
 import com.example.my_diary.service.DiaryService;
 
+import com.example.my_diary.service.JwtService;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,30 +17,33 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class DiaryController {
     private final DiaryService diaryService;
+    private final JwtService jwtService;
 
-    private Logger logger = LoggerFactory.getLogger(DiaryController.class);
+    @GetMapping("api/deleteDiary/{id}")
+    public ResponseEntity<ResponseMessageDto> delete(@PathVariable Long id,
+                                                     @RequestHeader(value="authorization") String jws)
+        throws Exception{
 
-    @GetMapping("get/deleteDiary/{id}")
-    public ResponseEntity<ResponseMessageDto> delete(@PathVariable Long id){
-        diaryService.deleteDiary(id);
+        diaryService.deleteDiary(id,(long)jwtService.getUserId(jws));
         return ResponseEntity.ok(new ResponseMessageDto(HttpStatus.OK.value()));
     }
 
 
-    @PostMapping("post/diary")
+    @PostMapping("api/diary")
     public ResponseEntity<ResponseMessageDto> save(@RequestParam("title") String title,
                                                        @RequestParam("content") String content,
                                                        //@RequestParam("selectedFile") MultipartFile file,
-                                                       @RequestParam("weather") String weather
+                                                       @RequestParam("weather") String weather,
+                                                   @RequestHeader(value="authorization") String jws
                                                 ) {
 
-        diaryService.save(new CreateDiaryDto(title,content, LocalDateTime.now(),weather));
+        diaryService.save(new CreateDiaryDto(title,content, LocalDateTime.now(),weather,(long)jwtService.getUserId(jws)));
 
         return ResponseEntity.ok(new ResponseMessageDto(HttpStatus.OK.value()));
     }
 
 
-    @GetMapping("get/diaries")
+    @GetMapping("api/diaries")
     public ResponseEntity<ResponseListDataDto> get() {
         return ResponseEntity.ok(new ResponseListDataDto(HttpStatus.OK.value(),diaryService.findAll()));
     }

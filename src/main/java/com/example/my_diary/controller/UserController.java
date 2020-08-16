@@ -1,6 +1,7 @@
 package com.example.my_diary.controller;
 
 import com.example.my_diary.common.CommonConstant;
+import com.example.my_diary.dto.response.ResponseDataDto;
 import com.example.my_diary.dto.response.ResponseMessageDto;
 import com.example.my_diary.dto.user.UserJoinRequestDto;
 import com.example.my_diary.dto.user.UserLoginRequestDto;
@@ -23,17 +24,14 @@ public class UserController {
     private final JwtService jwtService;
 
     @PostMapping("post/login")
-    public ResponseEntity<ResponseMessageDto> login(@RequestBody UserLoginRequestDto requestDto,
+    public ResponseEntity<ResponseDataDto> login(@RequestBody UserLoginRequestDto requestDto,
                                                     HttpServletResponse response) {
 
-        boolean isSuccess = userService.login(requestDto);
+        Long id = userService.login(requestDto);
 
-        if(!isSuccess) {
-            return ResponseEntity.ok(new ResponseMessageDto(HttpStatus.NOT_ACCEPTABLE.value()));
-        }
         response.setHeader(CommonConstant.AUTHORIZATION,
-                jwtService.create(requestDto.getLoginID()));
-        return ResponseEntity.ok(new ResponseMessageDto(HttpStatus.OK.value()));
+                jwtService.create(id));
+        return ResponseEntity.ok(new ResponseDataDto(HttpStatus.OK.value(),id));
     }
 
 

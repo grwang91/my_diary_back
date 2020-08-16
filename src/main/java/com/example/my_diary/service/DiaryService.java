@@ -18,9 +18,15 @@ public class DiaryService {
     private final DiaryRepository diaryRepository;
 
     @Transactional
-    public void deleteDiary(Long id) {
+    public void deleteDiary(Long id, Long userId) throws IllegalAccessException {
         Diary diary = diaryRepository.findById(id).get();
-        diaryRepository.delete(diary);
+
+        if(diary.getUserId() == userId) {
+            diaryRepository.delete(diary);
+        } else {
+            throw new IllegalAccessException();
+        }
+
     }
 
     @Transactional

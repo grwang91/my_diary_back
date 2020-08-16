@@ -21,12 +21,15 @@ public class CreateDiaryDto {
 
     private String weather;
 
+    private long userId;
+
     public Diary toEntity(){
         return Diary.builder()
                 .title(title)
                 .content(content)
                 .date(date)
                 .weather(weather)
+                .userId(userId)
                 .build();
     }
 

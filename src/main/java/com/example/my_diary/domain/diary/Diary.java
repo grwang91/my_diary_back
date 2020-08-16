@@ -28,11 +28,14 @@ public class Diary extends BaseTimeEntity {
 
     private String weather;
 
+    private Long userId;
+
     @Builder
-    public Diary(String title, String content, LocalDateTime date, String weather) {
+    public Diary(String title, String content, LocalDateTime date, String weather, Long userId) {
         this.title = title;
         this.content = content;
         this.date = date;
         this.weather = weather;
+        this.userId = userId;
     }
 }

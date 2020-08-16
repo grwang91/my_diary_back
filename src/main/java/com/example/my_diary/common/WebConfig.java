@@ -10,16 +10,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-//  private final JwtInterceptor jwtInterceptor;
-//  private static final String[] EXCLUDE_PATHS = {"/resource/**", "/static/**", "/user/login/**", "/user/join/**",
-//      "/error/**"};
-//  private static final String[] ADD_PATHS = {"/api/**", "/user/avatar"};
-//
-//  @Override
-//  public void addInterceptors(InterceptorRegistry registry) {
-//    registry.addInterceptor(jwtInterceptor).addPathPatterns(ADD_PATHS)
-//        .excludePathPatterns(EXCLUDE_PATHS);
-//  }
+  private final JwtInterceptor jwtInterceptor;
+  private static final String[] EXCLUDE_PATHS = {"/resource/**", "/static/**", "/post/login/**", "/post/signup/**",
+      "/error/**"};
+  private static final String[] ADD_PATHS = {"/api/**", "/user/avatar"};
+
+  @Override
+  public void addInterceptors(InterceptorRegistry registry) {
+    registry.addInterceptor(jwtInterceptor).addPathPatterns(ADD_PATHS)
+        .excludePathPatterns(EXCLUDE_PATHS);
+  }
 
   @Override
   public void addCorsMappings(CorsRegistry registry) {
