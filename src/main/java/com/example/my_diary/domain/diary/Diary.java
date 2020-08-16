@@ -2,6 +2,7 @@ package com.example.my_diary.domain.diary;
 
 
 import com.example.my_diary.common.BaseTimeEntity;
+import com.example.my_diary.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,14 +29,18 @@ public class Diary extends BaseTimeEntity {
 
     private String weather;
 
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    private User user;
+
+
 
     @Builder
-    public Diary(String title, String content, LocalDateTime date, String weather, Long userId) {
+    public Diary(String title, String content, LocalDateTime date, String weather, User user) {
         this.title = title;
         this.content = content;
         this.date = date;
         this.weather = weather;
-        this.userId = userId;
+        this.user = user;
     }
 }

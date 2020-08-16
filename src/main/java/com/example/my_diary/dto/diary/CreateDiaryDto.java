@@ -19,9 +19,11 @@ public class CreateDiaryDto {
 
     private LocalDateTime date;
 
+    private MultipartFile file;
+
     private String weather;
 
-    private long userId;
+
 
     public Diary toEntity(){
         return Diary.builder()
@@ -29,7 +31,6 @@ public class CreateDiaryDto {
                 .content(content)
                 .date(date)
                 .weather(weather)
-                .userId(userId)
                 .build();
     }
 

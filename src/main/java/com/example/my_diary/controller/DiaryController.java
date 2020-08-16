@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.time.LocalDateTime;
 
 
@@ -32,12 +34,12 @@ public class DiaryController {
     @PostMapping("api/diary")
     public ResponseEntity<ResponseMessageDto> save(@RequestParam("title") String title,
                                                        @RequestParam("content") String content,
-                                                       //@RequestParam("selectedFile") MultipartFile file,
+                                                       @RequestParam(value="selectedFile", required = false) MultipartFile file,
                                                        @RequestParam("weather") String weather,
                                                    @RequestHeader(value="authorization") String jws
                                                 ) {
 
-        diaryService.save(new CreateDiaryDto(title,content, LocalDateTime.now(),weather,(long)jwtService.getUserId(jws)));
+        diaryService.save(new CreateDiaryDto(title,content, LocalDateTime.now(),file,weather),(long)jwtService.getUserId(jws));
 
         return ResponseEntity.ok(new ResponseMessageDto(HttpStatus.OK.value()));
     }

@@ -13,6 +13,10 @@ public class DiaryListResponseDto {
     private String content;
     private LocalDateTime date;
     private WeatherDto weather;
+    private String userName;
+
+
+
 
     public DiaryListResponseDto(Diary entity) {
         Gson gson = new Gson();

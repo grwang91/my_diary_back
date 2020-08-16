@@ -2,6 +2,8 @@ package com.example.my_diary.service;
 
 import com.example.my_diary.domain.diary.Diary;
 import com.example.my_diary.domain.diary.DiaryRepository;
+import com.example.my_diary.domain.user.User;
+import com.example.my_diary.domain.user.UserRepository;
 import com.example.my_diary.dto.diary.CreateDiaryDto;
 import com.example.my_diary.dto.diary.DiaryListResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -16,12 +18,13 @@ import java.util.stream.Collectors;
 public class DiaryService {
 
     private final DiaryRepository diaryRepository;
+    private final UserRepository userRepository;
 
     @Transactional
     public void deleteDiary(Long id, Long userId) throws IllegalAccessException {
         Diary diary = diaryRepository.findById(id).get();
 
-        if(diary.getUserId() == userId) {
+        if(diary.getUser().getId() == userId) {
             diaryRepository.delete(diary);
         } else {
             throw new IllegalAccessException();
@@ -30,7 +33,8 @@ public class DiaryService {
     }
 
     @Transactional
-    public Long save(CreateDiaryDto createDiaryDto) {
+    public Long save(CreateDiaryDto createDiaryDto, Long userId) {
+
         Diary diary = createDiaryDto.toEntity();
         return diaryRepository.save(diary).getId();
     }
