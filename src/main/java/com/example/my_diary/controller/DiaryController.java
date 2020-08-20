@@ -1,6 +1,7 @@
 package com.example.my_diary.controller;
 
 import com.example.my_diary.dto.diary.CreateDiaryDto;
+import com.example.my_diary.dto.diary.UpdateDiaryRequestDto;
 import com.example.my_diary.dto.response.ResponseListDataDto;
 import com.example.my_diary.dto.response.ResponseMessageDto;
 import com.example.my_diary.service.DiaryService;
@@ -21,7 +22,7 @@ public class DiaryController {
     private final DiaryService diaryService;
     private final JwtService jwtService;
 
-    @GetMapping("api/deleteDiary/{id}")
+    @DeleteMapping("api/deleteDiary/{id}")
     public ResponseEntity<ResponseMessageDto> delete(@PathVariable Long id,
                                                      @RequestHeader(value="authorization") String jws)
         throws Exception{
@@ -30,6 +31,24 @@ public class DiaryController {
         return ResponseEntity.ok(new ResponseMessageDto(HttpStatus.OK.value()));
     }
 
+    @PutMapping("api/update")
+    public ResponseEntity<ResponseMessageDto> Update(@RequestParam("title") String title,
+                                                     @RequestParam("content") String content,
+                                                     @RequestParam("id") Long diaryId,
+                                                     @RequestParam(value="selectedFile", required = false) MultipartFile file,
+                                                     @RequestHeader(value="authorization") String jws) {
+
+        boolean success = diaryService.update(new UpdateDiaryRequestDto(title,content), diaryId, (long)jwtService.getUserId(jws));
+
+        int httpStatus;
+        if(success) {
+            httpStatus = HttpStatus.OK.value();
+        } else {
+            httpStatus = HttpStatus.NOT_MODIFIED.value();
+        }
+
+        return ResponseEntity.ok(new ResponseMessageDto(httpStatus));
+    }
 
     @PostMapping("api/diary")
     public ResponseEntity<ResponseMessageDto> save(@RequestParam("title") String title,

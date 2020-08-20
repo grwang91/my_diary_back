@@ -13,7 +13,7 @@ public class DiaryListResponseDto {
     private String content;
     private LocalDateTime date;
     private WeatherDto weather;
-    private String userName;
+    private String usrName;
 
 
 
@@ -27,5 +27,6 @@ public class DiaryListResponseDto {
         this.content = entity.getContent();
         this.date = entity.getDate();
         this.weather = weatherDto;
+        this.usrName = entity.getUsrName();
     }
 }
