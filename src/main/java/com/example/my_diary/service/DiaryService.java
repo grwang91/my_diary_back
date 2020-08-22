@@ -57,7 +57,10 @@ public class DiaryService {
     }
 
     private void saveDiaryPicture(CreateDiaryDto createDiaryDto, Diary diary) throws IOException {
-        String pictureUrl = s3Uploader.upload(createDiaryDto.getFile(),"static");
+        if(createDiaryDto.getFile() == null) {
+            return;
+        }
+        String pictureUrl = s3Uploader.upload(createDiaryDto.getFile(),"pictures");
         DiaryPictureRequestDto request = new DiaryPictureRequestDto(pictureUrl);
         DiaryPicture diaryPicture = request.toEntity();
         diaryPicture.addToDiary(diary);

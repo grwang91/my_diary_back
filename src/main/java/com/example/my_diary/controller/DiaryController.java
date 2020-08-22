@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 
@@ -56,7 +57,7 @@ public class DiaryController {
                                                        @RequestParam(value="selectedFile", required = false) MultipartFile file,
                                                        @RequestParam("weather") String weather,
                                                    @RequestHeader(value="authorization") String jws
-                                                ) {
+                                                ) throws IOException {
 
         diaryService.save(new CreateDiaryDto(title,content, LocalDateTime.now(),file,weather),(long)jwtService.getUserId(jws));
 

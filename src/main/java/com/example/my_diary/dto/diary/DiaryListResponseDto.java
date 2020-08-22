@@ -5,6 +5,8 @@ import com.google.gson.Gson;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 public class DiaryListResponseDto {
@@ -14,6 +16,8 @@ public class DiaryListResponseDto {
     private LocalDateTime date;
     private WeatherDto weather;
     private String usrName;
+
+    private List<DiaryPictureResponseDto> diaryPictures;
 
 
 
@@ -28,5 +32,7 @@ public class DiaryListResponseDto {
         this.date = entity.getDate();
         this.weather = weatherDto;
         this.usrName = entity.getUser().getUserName();
+        this.diaryPictures = entity.getDiaryPictures().stream().map(DiaryPictureResponseDto::new)
+            .collect(Collectors.toList());
     }
 }
