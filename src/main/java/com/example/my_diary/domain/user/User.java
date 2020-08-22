@@ -1,11 +1,14 @@
 package com.example.my_diary.domain.user;
 
 
+import com.example.my_diary.domain.diary.Diary;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -21,6 +24,9 @@ public class User {
     private String userName;
 
     private String password;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Diary> diaries = new ArrayList<>();
 
     @Builder
     public User(String userName, String password) {

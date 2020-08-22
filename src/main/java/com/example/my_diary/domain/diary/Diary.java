@@ -2,6 +2,7 @@ package com.example.my_diary.domain.diary;
 
 
 import com.example.my_diary.common.BaseTimeEntity;
+import com.example.my_diary.domain.diaryPicture.DiaryPicture;
 import com.example.my_diary.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,6 +10,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @NoArgsConstructor
@@ -29,19 +32,23 @@ public class Diary extends BaseTimeEntity {
 
     private String weather;
 
-    private String usrName;
-
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
 
-    public void setUsrName(String usrName) {
-        this.usrName = usrName;
-    }
+    @OneToMany(mappedBy = "diary", cascade = CascadeType.REMOVE)
+    private List<DiaryPicture> diaryPictures = new ArrayList<>();
 
     public void update(String title, String content) {
         this.title = title;
         this.content = content;
+    }
+
+    public void addToUser(User user) {
+        this.user = user;
+        if(!user.getDiaries().contains(this)) {
+            user.getDiaries().add(this);
+        }
     }
 
     @Builder

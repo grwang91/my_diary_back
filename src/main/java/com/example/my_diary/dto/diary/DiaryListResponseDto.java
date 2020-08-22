@@ -27,6 +27,6 @@ public class DiaryListResponseDto {
         this.content = entity.getContent();
         this.date = entity.getDate();
         this.weather = weatherDto;
-        this.usrName = entity.getUsrName();
+        this.usrName = entity.getUser().getUserName();
     }
 }
