@@ -27,16 +27,16 @@ public class S3Uploader {
     private AmazonS3 s3Client;
 
 
-    @Value("${cloud.aws.credentials.accessKey}")
+    //@Value("${cloud.aws.credentials.accessKey}")
     private String accessKey;
 
-    @Value("${cloud.aws.credentials.secretKey}")
+    //@Value("${cloud.aws.credentials.secretKey}")
     private String secretKey;
 
-    @Value("${cloud.aws.region.static}")
+    //@Value("${cloud.aws.region.static}")
     private String region;
 
-    @Value("${cloud.aws.s3.bucket}")
+    //@Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
     @PostConstruct
