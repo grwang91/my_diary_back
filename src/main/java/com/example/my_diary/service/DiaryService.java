@@ -51,21 +51,21 @@ public class DiaryService {
         User user = userRepository.findById(usrId).get();
         Diary diary = createDiaryDto.toEntity();
         diary.addToUser(user);
-        //saveDiaryPicture(createDiaryDto, diary);
+        saveDiaryPicture(createDiaryDto, diary);
 
         return diaryRepository.save(diary).getId();
     }
 
-//    private void saveDiaryPicture(CreateDiaryDto createDiaryDto, Diary diary) throws IOException {
-//        if(createDiaryDto.getFile() == null) {
-//            return;
-//        }
-//        String pictureUrl = s3Uploader.upload(createDiaryDto.getFile(),"pictures");
-//        DiaryPictureRequestDto request = new DiaryPictureRequestDto(pictureUrl);
-//        DiaryPicture diaryPicture = request.toEntity();
-//        diaryPicture.addToDiary(diary);
-//        diaryPictureRepository.save(diaryPicture);
-//    }
+    private void saveDiaryPicture(CreateDiaryDto createDiaryDto, Diary diary) throws IOException {
+        if(createDiaryDto.getFile() == null) {
+            return;
+        }
+        String pictureUrl = s3Uploader.upload(createDiaryDto.getFile(),"pictures");
+        DiaryPictureRequestDto request = new DiaryPictureRequestDto(pictureUrl);
+        DiaryPicture diaryPicture = request.toEntity();
+        diaryPicture.addToDiary(diary);
+        diaryPictureRepository.save(diaryPicture);
+    }
 
     public List<DiaryListResponseDto> findAll() {
         return diaryRepository.findAll().stream().map(DiaryListResponseDto::new)
