@@ -33,10 +33,10 @@ public class S3Uploader {
     //@Value("${cloud.aws.credentials.secretKey}")
     private String secretKey;
 
-    @Value("${cloud.aws.region.static}")
+    //@Value("${cloud.aws.region.static}")
     private String region;
 
-    @Value("${cloud.aws.s3.bucket}")
+    //@Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
     @PostConstruct
