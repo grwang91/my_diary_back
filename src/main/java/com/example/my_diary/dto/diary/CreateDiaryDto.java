@@ -21,6 +21,8 @@ public class CreateDiaryDto {
 
     private String weather;
 
+    private String geoData;
+
 
 
     public Diary toEntity(){
@@ -29,6 +31,7 @@ public class CreateDiaryDto {
                 .content(content)
                 .date(date)
                 .weather(weather)
+                .geoData(geoData)
                 .build();
     }
 

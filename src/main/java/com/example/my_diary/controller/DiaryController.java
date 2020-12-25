@@ -53,13 +53,14 @@ public class DiaryController {
 
     @PostMapping("api/diary")
     public ResponseEntity<ResponseMessageDto> save(@RequestParam("title") String title,
-                                                       @RequestParam("content") String content,
-                                                       @RequestParam(value="selectedFile", required = false) MultipartFile file,
-                                                       @RequestParam("weather") String weather,
+                                                   @RequestParam("content") String content,
+                                                   @RequestParam(value="selectedFile", required = false) MultipartFile file,
+                                                   @RequestParam("weather") String weather,
+                                                   @RequestParam("geoData") String geoData,
                                                    @RequestHeader(value="authorization") String jws
                                                 ) throws IOException {
 
-        diaryService.save(new CreateDiaryDto(title,content, LocalDateTime.now(),file,weather),(long)jwtService.getUserId(jws));
+        diaryService.save(new CreateDiaryDto(title,content, LocalDateTime.now(),file,weather, geoData),(long)jwtService.getUserId(jws));
 
         return ResponseEntity.ok(new ResponseMessageDto(HttpStatus.OK.value()));
     }

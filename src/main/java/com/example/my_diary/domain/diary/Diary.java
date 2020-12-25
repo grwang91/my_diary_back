@@ -32,6 +32,8 @@ public class Diary extends BaseTimeEntity {
 
     private String weather;
 
+    private String geoData;
+
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
@@ -52,10 +54,11 @@ public class Diary extends BaseTimeEntity {
     }
 
     @Builder
-    public Diary(String title, String content, LocalDateTime date, String weather) {
+    public Diary(String title, String content, LocalDateTime date, String weather, String geoData) {
         this.title = title;
         this.content = content;
         this.date = date;
         this.weather = weather;
+        this.geoData = geoData;
     }
 }

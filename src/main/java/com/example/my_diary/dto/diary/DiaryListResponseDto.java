@@ -15,6 +15,7 @@ public class DiaryListResponseDto {
     private String content;
     private LocalDateTime date;
     private WeatherDto weather;
+    private String geoData;
     private String usrName;
 
     private List<DiaryPictureResponseDto> diaryPictures;
@@ -31,6 +32,7 @@ public class DiaryListResponseDto {
         this.content = entity.getContent();
         this.date = entity.getDate();
         this.weather = weatherDto;
+        this.geoData = entity.getGeoData();
         this.usrName = entity.getUser().getUserName();
         this.diaryPictures = entity.getDiaryPictures().stream().map(DiaryPictureResponseDto::new)
             .collect(Collectors.toList());

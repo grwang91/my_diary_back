@@ -24,12 +24,13 @@ public class S3Uploader {
 
     private AmazonS3 s3Client;
 
+    //배포버전엔 주석처리
+    @Value("${cloud.aws.credentials.accessKey}")
+    private String accessKey;
 
-//    @Value("${cloud.aws.credentials.accessKey}")
-//    private String accessKey;
-//
-//    @Value("${cloud.aws.credentials.secretKey}")
-//    private String secretKey;
+    //배포버전엔 주석처리
+    @Value("${cloud.aws.credentials.secretKey}")
+    private String secretKey;
 
     @Value("${cloud.aws.region.static}")
     private String region;
@@ -40,17 +41,20 @@ public class S3Uploader {
     @PostConstruct
     public void setS3Client() {
 
-        //AWSCredentials credentials = new BasicAWSCredentials(this.accessKey, this.secretKey);
+        //배포버전엔 주석처리
+        AWSCredentials credentials = new BasicAWSCredentials(this.accessKey, this.secretKey);
 
-//        s3Client = AmazonS3ClientBuilder.standard()
-//                .withCredentials(new AWSStaticCredentialsProvider(credentials))
-//                .withRegion(this.region)
-//                .build();
-
+        //배포버전엔 주석처리
         s3Client = AmazonS3ClientBuilder.standard()
-                .withCredentials(new InstanceProfileCredentialsProvider(false))
+                .withCredentials(new AWSStaticCredentialsProvider(credentials))
                 .withRegion(this.region)
                 .build();
+
+        //배포버전엔 주석해제
+//        s3Client = AmazonS3ClientBuilder.standard()
+//                .withCredentials(new InstanceProfileCredentialsProvider(false))
+//                .withRegion(this.region)
+//                .build();
     }
 
     public String upload(MultipartFile multipartFile, String dirName) throws IOException {
