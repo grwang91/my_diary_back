@@ -2,6 +2,7 @@ package com.example.my_diary.domain.user;
 
 
 import com.example.my_diary.domain.diary.Diary;
+import com.example.my_diary.domain.marker.Marker;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,9 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Diary> diaries = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Marker> markers = new ArrayList<>();
 
     @Builder
     public User(String userName, String password) {
